@@ -3,11 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Stats - Final Upload</title>
+    <title>Movie Stats - Fixed Circle</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
 
     <style>
@@ -17,125 +14,76 @@
             --black: #000000;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        body {
-            margin: 0;
-            background-color: var(--bg-color);
-            font-family: 'Noto Sans JP', sans-serif;
-            color: var(--black);
-            overflow-x: hidden;
-        }
+        html { scroll-behavior: smooth; }
+        body { margin: 0; background-color: var(--bg-color); font-family: 'Noto Sans JP', sans-serif; color: var(--black); overflow-x: hidden; }
 
-        section {
-            min-height: 100vh; 
-            width: 100vw;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            padding: 40px 20px;
-            box-sizing: border-box;
-            overflow: hidden;
-        }
+        section { min-height: 100vh; width: 100vw; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; padding: 40px 20px; box-sizing: border-box; overflow: hidden; }
+        .seccion-condicional { display: none; }
 
-        .seccion-condicional {
-            display: none; 
-        }
-
-        /* Tipografía */
-        h1, h2, h3 {
-            text-transform: uppercase;
-            line-height: 1.1; 
-            letter-spacing: 0.5px;
-            font-weight: 900;
-            margin: 0;
-        }
-
+        h1, h2, h3 { text-transform: uppercase; line-height: 1.1; letter-spacing: 0.5px; font-weight: 900; margin: 0; }
         .text-pink { color: var(--pink); }
-        .bg-pink { background-color: var(--pink); }
-        
         .huge-text { font-size: clamp(2.5rem, 5.5vw, 5rem); text-align: center; }
         .med-text { font-size: clamp(1.8rem, 4vw, 3.5rem); text-align: center; }
-        
         p, .small-text, label, input, textarea { font-weight: 700; }
 
-        /* Botones */
-        .btn-pill {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            background-color: var(--pink);
-            color: white;
-            border-radius: 50px;
-            padding: 12px 40px;
-            border: none;
-            font-weight: 900;
-            text-transform: uppercase;
-            font-size: 1.2rem;
-            text-decoration: none;
-            transition: transform 0.2s;
-            margin-top: 20px;
-            box-shadow: 0 4px 10px rgba(255, 92, 204, 0.3);
-            cursor: pointer;
-        }
+        .btn-pill { display: inline-flex; justify-content: center; align-items: center; background-color: var(--pink); color: white; border-radius: 50px; padding: 12px 40px; border: none; font-weight: 900; text-transform: uppercase; font-size: 1.2rem; text-decoration: none; transition: transform 0.2s; margin-top: 20px; box-shadow: 0 4px 10px rgba(255, 92, 204, 0.3); cursor: pointer; }
         .btn-pill:hover { transform: scale(1.05); color: white; }
 
-        /* Decoración */
-        .star { 
-            position: absolute; color: var(--pink); font-size: 4rem; 
-            z-index: 0; pointer-events: none; transform: rotate(-15deg); font-weight: 900;
-        }
-
+        .star { position: absolute; color: var(--pink); font-size: 4rem; z-index: 0; pointer-events: none; transform: rotate(-15deg); font-weight: 900; }
         .diagonal-split { background: linear-gradient(160deg, var(--bg-color) 50%, var(--pink) 50%); width: 100%; }
+        .input-box { border: 2px solid #ddd; padding: 10px; border-radius: 12px; width: 80%; max-width: 350px; background: white; margin-bottom: 10px; font-weight: 700; }
         
-        /* Input Box Estilizado */
-        .input-box { 
-            border: 2px solid #ddd; 
-            padding: 10px; 
-            border-radius: 12px; 
-            width: 80%; 
-            max-width: 350px; 
-            background: white; 
-            margin-bottom: 10px;
-            font-family: 'Noto Sans JP', sans-serif;
-            font-weight: 700;
-            height: auto; /* Para que el input file se vea bien */
-        }
-        
-        /* Ajuste específico para el input file de Bootstrap */
-        input[type="file"].input-box {
-            line-height: 1.5;
-        }
-
-        .pie-chart { 
-            width: 180px; height: 180px; 
-            background: conic-gradient(var(--pink) 0% 25%, black 25% 100%); 
-            border-radius: 50%; margin: 20px auto; 
-        }
-
         .split-layout { display: flex; flex-direction: row; width: 100%; max-width: 1200px; height: 100%; align-items: center; }
         .split-text { flex: 1; text-align: right; padding-right: 40px; }
         .split-img { flex: 1; padding-left: 40px; display: flex; justify-content: flex-start; }
-        
-        @media (max-width: 768px) {
-            .split-layout { flex-direction: column; justify-content: center; }
-            .split-text { text-align: center; padding: 0; margin-bottom: 20px; }
-            .split-img { padding: 0; justify-content: center; }
-        }
-
-        .movie-poster { 
-            border: 4px solid #000; max-width: 100%; height: auto; box-shadow: 8px 8px 0px var(--pink);
-        }
-
-        .simple-input { 
-            border: none; border-bottom: 2px solid black; background: transparent; 
-            border-radius: 0; padding: 10px 0; font-family: 'Noto Sans JP', sans-serif; font-weight: 700;
-        }
+        .movie-poster { border: 4px solid #000; max-width: 100%; height: auto; box-shadow: 8px 8px 0px var(--pink); }
+        @media (max-width: 768px) { .split-layout { flex-direction: column; justify-content: center; } .split-text { text-align: center; padding: 0; margin-bottom: 20px; } .split-img { padding: 0; justify-content: center; } }
+        .simple-input { border: none; border-bottom: 2px solid black; background: transparent; border-radius: 0; padding: 10px 0; font-weight: 700; }
         .simple-input:focus { box-shadow: none; border-color: var(--pink); outline: none; }
+
+        /* --- ESTILOS DEL GRÁFICO SVG --- */
+        .chart-container {
+            position: relative;
+            width: 250px; /* Un poco más grande para que se luzca */
+            height: 250px;
+            margin: 20px auto;
+        }
+        
+        .chart-tooltip {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2rem;
+            font-weight: 900;
+            text-align: center;
+            pointer-events: none;
+            text-shadow: 0 0 5px white;
+            opacity: 0;
+            transition: opacity 0.2s;
+            background: rgba(255,255,255,0.9);
+            padding: 8px 15px;
+            border-radius: 10px;
+            width: auto;
+            white-space: nowrap;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* SVG Circle Styles */
+        svg { transform: rotate(-90deg); overflow: visible; } /* Overflow visible por si acaso */
+        circle {
+            fill: none;
+            stroke-width: 32; /* Grosor de la torta */
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        circle:hover {
+            stroke-width: 36; /* Efecto pop más notorio */
+            opacity: 1;
+            filter: drop-shadow(0 0 5px rgba(0,0,0,0.3));
+        }
+
     </style>
 </head>
 <body>
@@ -162,19 +110,28 @@
 
     <section id="attach-section">
         <div class="star" style="bottom: 20%; right: 10%;">★</div>
-        <div class="star" style="top: 20%; left: 10%;">★</div>
         <h2 class="mb-4 med-text">Attach your score</h2>
-        
         <input type="file" class="form-control input-box" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
-        
         <a href="#stats-section" class="btn-pill" style="width: 200px;">Check</a>
         <p class="mt-3 text-muted small">Only .json, .csv or .xlsx files accepted</p>
     </section>
 
     <section id="stats-section">
-        <h2 class="med-text">YOU HAVE SEEN <span class="text-pink">1400</span> MOVIES</h2>
-        <p class="text-pink mb-4 fs-4">AND 200 WERE DIRECTED BY WOMEN</p>
-        <div class="pie-chart"></div>
+        <h2 class="med-text">YOU HAVE SEEN <span class="text-pink" id="val-movies-total">0</span> MOVIES</h2>
+        <p class="text-pink mb-4 fs-4">AND <span id="val-total-w">0</span> WERE DIRECTED BY WOMEN</p>
+        
+        <div class="chart-container">
+            <svg width="100%" height="100%" viewBox="0 0 64 64">
+                <circle id="circle-men" cx="32" cy="32" r="16" stroke="black" stroke-dasharray="100 100"></circle>
+                
+                <circle id="circle-women" cx="32" cy="32" r="16" stroke="var(--pink)" stroke-dasharray="0 100"></circle>
+            </svg>
+            
+            <div id="chart-tooltip" class="chart-tooltip">Hover me!</div>
+        </div>
+        
+        <p class="small text-muted mt-2">Hover the chart to see percentages</p>
+
         <button class="btn-pill mt-4" style="background: transparent; border: 3px solid var(--pink); color: var(--black);">
             Not feminist enough
         </button>
@@ -185,47 +142,49 @@
             <div class="row w-100 text-center">
                 <div class="col-md-6 mb-5 mb-md-0">
                     <p class="fs-4 fw-bold">MEANWHILE THE AVERAGE <br> MEN RATING IS</p>
-                    <h1 class="display-1 fw-bold">4.2 ★</h1>
+                    <h1 class="display-1 fw-bold"><span id="val-avg-m">0</span> ★</h1>
                 </div>
                 <div class="col-md-6 mt-5 mt-md-0">
                     <p class="fs-4 fw-bold">YOUR WOMAN <br> RATING IS</p>
-                    <h1 class="display-1 fw-bold">3.2 ★</h1>
+                    <h1 class="display-1 fw-bold"><span id="val-avg-w">0</span> ★</h1>
                 </div>
             </div>
             <div style="position: absolute; right: -40px; font-size: 15rem; transform: rotate(90deg); font-weight:900; opacity: 0.1;">:)</div>
         </div>
     </section>
 
-    <section id="resultado-1" class="seccion-condicional">
+    <section id="sec-at-least" class="seccion-condicional">
         <div class="split-layout">
             <div class="split-text">
                 <h2 class="mb-2 fs-1">AT LEAST YOU LIKED...</h2>
-                <h1 class="display-1 fw-bold">4.2 <span class="text-pink">★</span></h1>
+                <h3 class="mb-0 text-muted" id="best-movie-title-1">MOVIE NAME</h3>
+                <h1 class="display-1 fw-bold"><span class="best-rating-val">0</span> <span class="text-pink">★</span></h1>
                 <h2 class="mt-4 fs-1">DO BETTER...</h2>
             </div>
             <div class="split-img">
-                <img src="https://picsum.photos/id/40/300/450" class="movie-poster" alt="Movie 1">
+                <img src="" id="poster-img-1" class="movie-poster" alt="Best Movie Poster">
             </div>
         </div>
         <div class="star" style="bottom: 10%; left: 5%;">★</div>
     </section>
 
-    <section id="resultado-2" class="seccion-condicional">
+    <section id="sec-incredible" class="seccion-condicional">
         <div class="star" style="top: 10%; right: 5%;">★</div>
         <div class="split-layout">
             <div class="split-text">
                 <h2 class="mb-2 fs-1">YOU HAVE SUCH AN</h2>
                 <h2 class="mb-2 fs-1">INCREDIBLE TASTE</h2>
-                <h1 class="display-1 fw-bold">4.2 <span class="text-pink">★</span></h1>
+                <h3 class="mb-0 text-muted" id="best-movie-title-2">MOVIE NAME</h3>
+                <h1 class="display-1 fw-bold"><span class="best-rating-val">0</span> <span class="text-pink">★</span></h1>
                 <h2 class="mt-4 fs-1">KEEP DOING!</h2>
             </div>
             <div class="split-img">
-                <img src="https://picsum.photos/id/65/300/450" class="movie-poster" alt="Movie 2">
+                <img src="" id="poster-img-2" class="movie-poster" alt="Best Movie Poster">
             </div>
         </div>
     </section>
 
-    <section id="resultado-3" class="seccion-condicional text-center px-4">
+    <section id="sec-no-movies" class="seccion-condicional text-center px-4">
         <div class="star" style="left: -20px; bottom: 20px; font-size: 8rem;">★</div>
         <h2 class="mb-5">AT LEAST YOU LIKED...</h2>
         <h3 class="med-text mb-4" style="max-width: 900px; line-height: 1.3;">
@@ -239,18 +198,9 @@
             <div class="row w-100 align-items-center">
                 <div class="col-md-5">
                     <form>
-                        <div class="mb-4">
-                            <label class="form-label text-uppercase">Name</label>
-                            <input type="text" class="form-control simple-input">
-                        </div>
-                        <div class="mb-4">
-                            <label class="form-label text-uppercase">Email</label>
-                            <input type="email" class="form-control simple-input">
-                        </div>
-                        <div class="mb-4">
-                            <label class="form-label text-uppercase">Tell Us</label>
-                            <textarea class="form-control simple-input" rows="1"></textarea>
-                        </div>
+                        <div class="mb-4"><label class="form-label text-uppercase">Name</label><input type="text" class="form-control simple-input"></div>
+                        <div class="mb-4"><label class="form-label text-uppercase">Email</label><input type="email" class="form-control simple-input"></div>
+                        <div class="mb-4"><label class="form-label text-uppercase">Tell Us</label><textarea class="form-control simple-input" rows="1"></textarea></div>
                         <button type="button" class="btn-pill w-100 mt-2">Send</button>
                     </form>
                 </div>
@@ -264,24 +214,93 @@
     </section>
 
     <section class="p-0" style="min-height: 100vh;">
-        <img src="https://picsum.photos/id/19/1600/900" style="width: 100%; height: 100%; object-fit: cover;" alt="Footer Landscape">
+        <img src="https://picsum.photos/id/19/1600/900" style="width: 100%; height: 100%; object-fit: cover;" alt="Footer">
         <div style="position: absolute; bottom: 0; left: 0; background: white; padding: 30px 40px; width: 100%;">
-            <h2 class="fw-bold text-uppercase m-0" style="font-size: 3rem;">
-                POWERED BY <span class="text-pink">LETTERBOXD</span>
-            </h2>
+            <h2 class="fw-bold text-uppercase m-0" style="font-size: 3rem;">POWERED BY <span class="text-pink">LETTERBOXD</span></h2>
         </div>
     </section>
 
     <script>
-        // CONFIGURACIÓN: Cambiá este número a 1, 2 o 3 para probar las pantallas
-        const opcionElegida = 1; 
+        // ==========================================
+        // 1. DATOS REALES (Modificar aquí)
+        // ==========================================
+        const movies_total = 1000;
+        const total_w = 200;      // 20%
+        const average_w = 4.5;
+        const average_m = 3.5;
+        
+        // Mejor peli de mujer encontrada
+        const best_woman_movie_average = 4.2; 
+        const best_woman_movie_name = "Marie Antoinette";
+        const best_woman_movie_poster = "https://picsum.photos/id/40/300/450";
 
-        if (opcionElegida === 1) {
-            document.getElementById('resultado-1').style.display = 'flex';
-        } else if (opcionElegida === 2) {
-            document.getElementById('resultado-2').style.display = 'flex';
-        } else if (opcionElegida === 3) {
-            document.getElementById('resultado-3').style.display = 'flex';
+        // ==========================================
+        // 2. INYECTAR DATOS BÁSICOS
+        // ==========================================
+        document.getElementById('val-movies-total').innerText = movies_total;
+        document.getElementById('val-total-w').innerText = total_w;
+        document.getElementById('val-avg-m').innerText = average_m;
+        document.getElementById('val-avg-w').innerText = average_w;
+
+        // ==========================================
+        // 3. LÓGICA DEL GRÁFICO (PIE CHART)
+        // ==========================================
+        const pctWomen = (total_w / movies_total) * 100; // Ej: 20
+        const pctMen = 100 - pctWomen;                   // Ej: 80
+
+        // Configurar SVG
+        const circleWomen = document.getElementById('circle-women');
+        const circleMen = document.getElementById('circle-men');
+        
+        // Pinta el % correspondiente en rosa
+        circleWomen.setAttribute('stroke-dasharray', `${pctWomen} 100`);
+
+        // ==========================================
+        // 4. INTERACTIVIDAD (HOVER)
+        // ==========================================
+        const tooltip = document.getElementById('chart-tooltip');
+
+        function showTooltip(text, color) {
+            tooltip.innerText = text;
+            tooltip.style.opacity = '1';
+            tooltip.style.color = color;
+        }
+
+        function hideTooltip() {
+            tooltip.style.opacity = '0';
+        }
+
+        circleWomen.addEventListener('mouseenter', () => showTooltip(`Women: ${pctWomen.toFixed(1)}%`, 'var(--pink)'));
+        circleWomen.addEventListener('mouseleave', hideTooltip);
+
+        circleMen.addEventListener('mouseenter', () => showTooltip(`Men: ${pctMen.toFixed(1)}%`, 'black'));
+        circleMen.addEventListener('mouseleave', hideTooltip);
+
+
+        // ==========================================
+        // 5. LÓGICA DEL RESULTADO (CONDICIONAL)
+        // ==========================================
+        const secAtLeast = document.getElementById('sec-at-least');
+        const secIncredible = document.getElementById('sec-incredible');
+        const secNoMovies = document.getElementById('sec-no-movies');
+
+        // Regla: 15% del mercado Y mejor promedio
+        const cumplePorcentaje = pctWomen >= 15;
+
+        if (cumplePorcentaje && average_w >= average_m) {
+            secIncredible.style.display = 'flex';
+            document.getElementById('poster-img-2').src = best_woman_movie_poster;
+            document.getElementById('best-movie-title-2').innerText = best_woman_movie_name;
+            secIncredible.querySelector('.best-rating-val').innerText = best_woman_movie_average;
+        } else {
+            if (best_woman_movie_average > 2.5) {
+                secAtLeast.style.display = 'flex';
+                document.getElementById('poster-img-1').src = best_woman_movie_poster;
+                document.getElementById('best-movie-title-1').innerText = best_woman_movie_name;
+                secAtLeast.querySelector('.best-rating-val').innerText = best_woman_movie_average;
+            } else {
+                secNoMovies.style.display = 'flex';
+            }
         }
     </script>
 
